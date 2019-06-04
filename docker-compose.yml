@@ -20,5 +20,15 @@ services:
       - 8080:80
     environment:
       PMA_HOST: mysql
+
+  php-fpm:
+      build: .
+      depends_on:
+          - mysql
+      volumes:
+          - ../:/var/www/:cached
+      command: bin/console server:run 0.0.0.0:80
+      ports:
+          - 8000:80
 volumes:
   db_data: {}
